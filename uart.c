@@ -25,8 +25,6 @@ int main() {
     tcflush(uart_fd, TCIFLUSH);                    // Flush the input buffer
     tcsetattr(uart_fd, TCSANOW, &options);         // Apply the configuration
 
-    fcntl(uart_fd, F_SETFL, 0);
-
     // Send data
     char write_buffer[] = "Hello, UART Loopback Test!";
     int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
