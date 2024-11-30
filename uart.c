@@ -3,7 +3,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#define UART_DEVICE "/dev/serial0" // For Raspberry Pi's default UART
+#define UART_DEVICE "/dev/ttyAMA0" // For Raspberry Pi's default UART
 
 int main() {
     // Open the UART device
