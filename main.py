@@ -1,5 +1,5 @@
 import serial
-
+import sys
 # Configure the serial port
 port = "/dev/ttyAMA0"  # Replace with the correct port for your setup (e.g., COM3 on Windows)
 baud_rate = 9600
@@ -9,7 +9,7 @@ ser = serial.Serial(port, baud_rate, timeout=1)
 
 try:
     # Data to send
-    send_data = "AT+SEND=8,5,hello\r\n"
+    send_data = f"{sys.argv[1]}\r\n"
 
     # Write data to UART
     ser.write(send_data.encode('utf-8'))
