@@ -12,7 +12,7 @@ try:
     send_data = f"{sys.argv[1]}\r\n"
 
     # Write data to UART
-    ser.write(send_data)
+    ser.write(send_data.encode('utf-8'))
     print(f"Sent: {send_data}")
 
     # Read the data back
