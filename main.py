@@ -6,6 +6,8 @@ baud_rate = 9600
 
 # Initialize the serial connection
 ser = serial.Serial(port, baud_rate, timeout=1)
+ser.reset_input_buffer()
+ser.reset_output_buffer()
 
 try:
     # Data to send
