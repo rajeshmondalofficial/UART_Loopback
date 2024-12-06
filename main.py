@@ -16,15 +16,11 @@ try:
     print(f"Sent: {send_data}")
 
     # Read the data back
-    received_data = ser.read(len(send_data)).decode('utf-8')
-    print(f"Received: {received_data}")
-
-    # Verify loopback
-    if send_data == received_data:
-        print("Loopback successful!")
-    else:
-        print("Mismatch in loopback data.")
-
+    while True:
+        received_data = ser.read(len(send_data)).decode('utf-8')
+        print(f"Received: {received_data}")
+except KeyboardInterrupt:
+    print("\nInterrupted by user. Exiting...")
 finally:
     # Close the serial connection
     ser.close()
