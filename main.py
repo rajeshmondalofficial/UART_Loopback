@@ -18,7 +18,8 @@ try:
     # Read the data back
     while True:
         received_data = ser.read(1024).decode('utf-8')
-        print(f"Received: {received_data}")
+        if received_data:
+            print(f"Received: {received_data}")
 except KeyboardInterrupt:
     print("\nInterrupted by user. Exiting...")
 finally:
