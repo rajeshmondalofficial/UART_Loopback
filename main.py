@@ -9,7 +9,7 @@ ser = serial.Serial(port, baud_rate, timeout=1)
 
 try:
     # Data to send
-    send_data = "Hello, UART Loopback!"
+    send_data = "AT+SEND=8,5,hello\r\n"
 
     # Write data to UART
     ser.write(send_data.encode('utf-8'))
