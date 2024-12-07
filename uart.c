@@ -37,7 +37,7 @@ int main() {
 
     // Read data
     char read_buffer[1024];
-    int bytes_read = read(uart_fd, read_buffer, sizeof(read_buffer));
+    int bytes_read = read(uart_fd, read_buffer, 1024);
     if (bytes_read < 0) {
         perror("Failed to read from UART");
         close(uart_fd);
