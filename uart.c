@@ -7,7 +7,7 @@
 
 int main() {
     // Open the UART device
-    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY | O_NODELAY);
+    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY | O_NDELAY);
     if (uart_fd == -1) {
         perror("Failed to open UART");
         return -1;
