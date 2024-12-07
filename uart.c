@@ -27,7 +27,7 @@ int main() {
 
     // Send data
     char write_buffer[] = "AT+SEND=8,5,Hello";
-    char termination[] = {0x0D, 0x0A};
+    char termination[] = {0x0D};
     int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
     int bytes_written1 = write(uart_fd, termination, sizeof(termination));
     if (bytes_written < 0) {
