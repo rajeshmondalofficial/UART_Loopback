@@ -42,11 +42,11 @@ int main() {
     // Read data
         char read_buffer[1024];
         int bytes_read = read(uart_fd, read_buffer, 1024);
-        if (bytes_read < 0) {
-            perror("Failed to read from UART");
-            close(uart_fd);
-            return -1;
-        }
+        // if (bytes_read < 0) {
+        //     perror("Failed to read from UART");
+        //     close(uart_fd);
+        //     return -1;
+        // }
 
         read_buffer[bytes_read] = '\0'; // Null-terminate the string
         printf("Received: %s\n", read_buffer);
