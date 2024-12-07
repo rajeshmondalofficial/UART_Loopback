@@ -47,6 +47,10 @@ int main()
         // Read data
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
+        if(dataReady < 10) {
+            printf("Bytes Read: %d\n", bytes_read);
+            dataReady++;
+        }
         if (bytes_read > 0)
         {
             read_buffer[bytes_read] = '\0';
@@ -63,7 +67,7 @@ int main()
 
         if (dataReady > 0)
         {
-            printf("Received: %s\n", data);
+            // printf("Received: %s\n", data);
             dataReady = -1;
             data[0] = '\0';
         }
