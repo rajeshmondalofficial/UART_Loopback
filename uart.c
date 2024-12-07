@@ -51,26 +51,26 @@ int main()
             printf("Bytes Read: %d\n", bytes_read);
             dataReady++;
         }
-        if (bytes_read > 0)
-        {
-            read_buffer[bytes_read] = '\0';
-            strcat(data, read_buffer);
-            dataReady = -1;
-        }
-        else
-        {
-            if (strlen(data) > 0)
-            {
-                dataReady = 1;
-            }
-        }
+        // if (bytes_read > 0)
+        // {
+        //     read_buffer[bytes_read] = '\0';
+        //     strcat(data, read_buffer);
+        //     dataReady = -1;
+        // }
+        // else
+        // {
+        //     if (strlen(data) > 0)
+        //     {
+        //         dataReady = 1;
+        //     }
+        // }
 
-        if (dataReady > 0)
-        {
-            // printf("Received: %s\n", data);
-            dataReady = -1;
-            data[0] = '\0';
-        }
+        // if (dataReady > 0)
+        // {
+        //     // printf("Received: %s\n", data);
+        //     dataReady = -1;
+        //     data[0] = '\0';
+        // }
     }
 
     // Close UART
