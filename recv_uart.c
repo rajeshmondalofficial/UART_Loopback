@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
+#include <string.h>
 
 #define UART_DEVICE "/dev/ttyAMA0" // For Raspberry Pi's default UART
 
