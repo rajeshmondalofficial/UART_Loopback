@@ -53,6 +53,7 @@ int main() {
 
         if(dataReady == 1 && strlen(data) > 0) {
             printf("Received: %s\n", data);
+            dataReady = -1;
         }
 
        
