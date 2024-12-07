@@ -53,8 +53,6 @@ int main() {
 
         if(dataReady == 1 && strlen(data) > 0) {
             printf("Received: %s\n", data);
-            data[0] = '\0'; // Clear the data buffer
-            dataReady = -1; // Reset the data ready flag
         }
 
        
