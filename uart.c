@@ -7,7 +7,7 @@
 
 int main() {
     // Open the UART device
-    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY);
+    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY | O_NODELAY);
     if (uart_fd == -1) {
         perror("Failed to open UART");
         return -1;
@@ -39,7 +39,7 @@ int main() {
 
 
     while(1) {
-        // Read data
+    // Read data
         char read_buffer[1024];
         int bytes_read = read(uart_fd, read_buffer, 1024);
         if (bytes_read < 0) {
