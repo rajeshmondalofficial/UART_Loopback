@@ -37,11 +37,22 @@ int main() {
     }
     printf("Sent: %s\n", write_buffer);
 
-
+    int dataReady = -1;
+    char data[1024];
     while(1) {
-    // Read data
-        char read_buffer[1024];
-        int bytes_read = read(uart_fd, read_buffer, 1024);
+        // Read data
+        char read_buffer[256];
+        int bytes_read = read(uart_fd, read_buffer, 256);
+        if(bytes_read > 0) {
+            dataReady = -1;
+            strcat(data, read_buffer);
+        } else {
+            dataReady = 0;
+        }
+
+        if(dataReady) {
+            printf("Received Buffer: %s\n", data);
+        }
         // if (bytes_read < 0) {
         //     perror("Failed to read from UART");
         //     close(uart_fd);
@@ -49,7 +60,7 @@ int main() {
         // }
 
         read_buffer[bytes_read] = '\0'; // Null-terminate the string
-        printf("Received: %s\n", read_buffer);
+        
     }
     
 
