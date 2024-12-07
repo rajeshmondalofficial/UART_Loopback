@@ -26,16 +26,17 @@ int main() {
     tcsetattr(uart_fd, TCSANOW, &options);         // Apply the configuration
 
     // Send data
-    char write_buffer[] = "AT";
-    char termination[] = {0x0D, 0x0A};
-    int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
-    int bytes_written1 = write(uart_fd, termination, sizeof(termination));
-    if (bytes_written < 0) {
-        perror("Failed to write to UART");
-        close(uart_fd);
-        return -1;
-    }
-    printf("Sent: %s\n", write_buffer);
+    // char write_buffer[] = "AT";
+    // char termination[] = {0x0D, 0x0A};
+    // int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
+    // int bytes_written1 = write(uart_fd, termination, sizeof(termination));
+    // if (bytes_written < 0) {
+    //     perror("Failed to write to UART");
+    //     close(uart_fd);
+    //     return -1;
+    // }
+    // printf("Sent: %s\n", write_buffer);
+    printf("Listening on port %d\n", uart_fd);
 
     // Read data
     char read_buffer[1024];
