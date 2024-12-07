@@ -44,15 +44,10 @@ int main() {
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
         if(bytes_read > 0) {
-            dataReady = -1;
-            strcat(data, read_buffer);
-        } else {
-            dataReady = 1;
+             printf("Received Buffer: %s\n", read_buffer);
         }
 
-        if(dataReady > 0 && strlen(data) > 0) {
-            printf("Received Buffer: %s\n", data);
-        }
+       
         // if (bytes_read < 0) {
         //     perror("Failed to read from UART");
         //     close(uart_fd);
