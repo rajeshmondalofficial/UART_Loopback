@@ -55,7 +55,10 @@ int main()
         }
         else
         {
-            dataReady = 1;
+            if (strlen(data) > 0)
+            {
+                dataReady = 1;
+            }
         }
 
         if (dataReady > 0)
