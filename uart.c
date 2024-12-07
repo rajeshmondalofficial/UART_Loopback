@@ -47,7 +47,7 @@ int main()
         // Read data
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
-        if(dataReady < 10) {
+        if(dataReady < 50) {
             printf("Bytes Read: %d\n", bytes_read);
             dataReady++;
         }
