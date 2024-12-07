@@ -44,7 +44,7 @@ int main() {
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
         if(bytes_read > 0) {
-             read_buffer[bytes_read] = '\0'
+             read_buffer[bytes_read] = '\0';
              printf("Received Buffer: %s\n", read_buffer);
         }
 
