@@ -26,7 +26,7 @@ int main() {
     tcsetattr(uart_fd, TCSANOW, &options);         // Apply the configuration
 
     // Send data
-    char write_buffer[] = "AT+SEND=8,5,Hello\r\n";
+    char write_buffer[] = "AT+SEND=8,5,Hello0x0D 0x0A";
     int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
     if (bytes_written < 0) {
         perror("Failed to write to UART");
