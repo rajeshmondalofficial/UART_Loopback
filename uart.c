@@ -47,10 +47,10 @@ int main() {
             dataReady = -1;
             strcat(data, read_buffer);
         } else {
-            dataReady = 0;
+            dataReady = 1;
         }
 
-        if(dataReady) {
+        if(dataReady > 0) {
             printf("Received Buffer: %s\n", data);
         }
         // if (bytes_read < 0) {
