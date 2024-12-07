@@ -7,7 +7,7 @@
 
 int main() {
     // Open the UART device
-    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY | O_NDELAY);
+    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY);
     if (uart_fd == -1) {
         perror("Failed to open UART");
         return -1;
@@ -26,7 +26,7 @@ int main() {
     tcsetattr(uart_fd, TCSANOW, &options);         // Apply the configuration
 
     // Send data
-    char write_buffer[] = "Hello, UART Loopback Test!";
+    char write_buffer[] = "AT+SEND=8,5,Hello\r\n";
     int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
     if (bytes_written < 0) {
         perror("Failed to write to UART");
@@ -36,7 +36,7 @@ int main() {
     printf("Sent: %s\n", write_buffer);
 
     // Read data
-    char read_buffer[256];
+    char read_buffer[1024];
     int bytes_read = read(uart_fd, read_buffer, sizeof(read_buffer));
     if (bytes_read < 0) {
         perror("Failed to read from UART");
