@@ -65,6 +65,7 @@ int main()
         {
             printf("Received: %s\n", data);
             dataReady = -1;
+            data[0] = '\0';
         }
     }
 
