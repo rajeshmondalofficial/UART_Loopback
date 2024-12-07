@@ -67,7 +67,7 @@ int main()
             if (reading)
             {
                 dataReady = 1;
-                reading = false
+                reading = false;
             }
             else
             {
