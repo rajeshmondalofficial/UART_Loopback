@@ -40,32 +40,33 @@ int main()
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
 
-        usleep(10000);
+        // usleep(10000);
 
         // When bytes read more than 0 make the reading flag true
         if (bytes_read > 0)
         {
             reading = true;
             read_buffer[bytes_read] = '\0';
-            strcat(data, read_buffer);
+            // strcat(data, read_buffer);
+            printf("Receive: %s\n", read_buffer);
         }
-        else
-        {
-            if (reading)
-            {
-                dataReady = 1;
-                reading = false;
-            }
-            else
-            {
-                dataReady = -1;
-                data[0] = '\0';
-            }
-        }
-        if (dataReady > 0)
-        {
-            printf("Received: %s\n", data);
-        }
+        // else
+        // {
+        //     if (reading)
+        //     {
+        //         dataReady = 1;
+        //         reading = false;
+        //     }
+        //     else
+        //     {
+        //         dataReady = -1;
+        //         data[0] = '\0';
+        //     }
+        // }
+        // if (dataReady > 0)
+        // {
+        //     printf("Received: %s\n", data);
+        // }
     }
 
     // Close UART
