@@ -50,6 +50,8 @@ int main()
         // Read data
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
+        
+        usleep(10000);
 
         // When bytes read more than 0 make the reading flag true
         if (bytes_read > 0)
