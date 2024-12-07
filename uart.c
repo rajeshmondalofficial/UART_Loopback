@@ -38,7 +38,7 @@ int main() {
     printf("Sent: %s\n", write_buffer);
 
     int dataReady = -1;
-    char data[1024];
+    char data[256];
     while(1) {
         // Read data
         char read_buffer[256];
@@ -50,7 +50,7 @@ int main() {
             dataReady = 1;
         }
 
-        if(dataReady > 0) {
+        if(dataReady > 0 && strlen(data) > 0) {
             printf("Received Buffer: %s\n", data);
         }
         // if (bytes_read < 0) {
