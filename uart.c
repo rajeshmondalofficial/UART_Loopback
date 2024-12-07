@@ -38,14 +38,23 @@ int main() {
     printf("Sent: %s\n", write_buffer);
 
     int dataReady = -1;
-    char data[256];
+    char data[1024];
     while(1) {
         // Read data
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
         if(bytes_read > 0) {
-             read_buffer[bytes_read] = '\0';
-             printf("Received Buffer: %s\n", read_buffer);
+            read_buffer[bytes_read] = '\0';
+            strcat(data, read_buffer);
+            dataReady = -1;
+        } else {
+            dataReady = 1;
+        }
+
+        if(dataReady && strlen(data) > 0) {
+            printf("Received: %s\n", data);
+            data[0] = '\0'; // Clear the data buffer
+            dataReady = -1; // Reset the data ready flag
         }
 
        
@@ -55,7 +64,7 @@ int main() {
         //     return -1;
         // }
 
-        read_buffer[bytes_read] = '\0'; // Null-terminate the string
+        
         
     }
     
