@@ -4,7 +4,6 @@
 #include <termios.h>
 #include <unistd.h>
 
-
 #define UART_DEVICE "/dev/ttyAMA0" // For Raspberry Pi's default UART
 
 int main()
@@ -50,7 +49,7 @@ int main()
         // Read data
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
-        
+
         usleep(10000);
 
         // When bytes read more than 0 make the reading flag true
@@ -77,27 +76,6 @@ int main()
         {
             printf("Received: %s\n", data);
         }
-
-        // if (bytes_read > 0)
-        // {
-        //     read_buffer[bytes_read] = '\0';
-        //     strcat(data, read_buffer);
-        //     dataReady = -1;
-        // }
-        // else
-        // {
-        //     if (strlen(data) > 0)
-        //     {
-        //         dataReady = 1;
-        //     }
-        // }
-
-        // if (dataReady > 0)
-        // {
-        //     // printf("Received: %s\n", data);
-        //     dataReady = -1;
-        //     data[0] = '\0';
-        // }
     }
 
     // Close UART
