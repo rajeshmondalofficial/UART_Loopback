@@ -51,6 +51,7 @@ int main()
             printf("Bytes Read: %d\n", bytes_read);
             dataReady++;
         }
+        usleep(100);
         // if (bytes_read > 0)
         // {
         //     read_buffer[bytes_read] = '\0';
