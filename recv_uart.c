@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
@@ -26,6 +27,9 @@ int main()
 
     tcflush(uart_fd, TCIFLUSH);            // Flush the input buffer
     tcsetattr(uart_fd, TCSANOW, &options); // Apply the configuration
+
+
+    printf("Listening on port %d\n", uart_fd);
     int dataReady = -1;
     bool reading = false;
     char data[1024];
