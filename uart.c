@@ -21,7 +21,7 @@ int main()
     struct termios options;
     tcgetattr(uart_fd, &options);
 
-    options.c_cflag = B9600 | CS8 | CLOCAL | CREAD; // Baud rate: 9600, 8 data bits, no parity, 1 stop bit
+    options.c_cflag = B9600 | CS16 | CLOCAL | CREAD; // Baud rate: 9600, 8 data bits, no parity, 1 stop bit
     options.c_iflag = IGNPAR;                       // Ignore framing errors
     options.c_oflag = 0;
     options.c_lflag = 0; // Non-canonical mode
@@ -69,8 +69,9 @@ int main()
             }
             else
             {
-                dataReady = -1;
-                data[0] = '\0';
+                // dataReady = -1;
+                // data[0] = '\0';
+                printf("Received Bytes %d",)
             }
         }
         if (dataReady > 0)
