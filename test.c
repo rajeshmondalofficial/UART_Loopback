@@ -81,15 +81,15 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    char send_data[256];
-    snprintf(send_data, sizeof(send_data), "AT\r\n");
+    // char send_data[256];
+    // snprintf(send_data, sizeof(send_data), "AT\r\n");
 
-    if (write(uart_fd, send_data, strlen(send_data)) < 0) {
-        perror("UART write failed");
-        close(uart_fd);
-        return 1;
-    }
-    printf("Sent: %s\n", send_data);
+    // if (write(uart_fd, send_data, strlen(send_data)) < 0) {
+    //     perror("UART write failed");
+    //     close(uart_fd);
+    //     return 1;
+    // }
+    // printf("Sent: %s\n", send_data);
 
     char received_data[1024];
     ssize_t bytes_read = uart_read(uart_fd, received_data, sizeof(received_data) - 1, 5);
