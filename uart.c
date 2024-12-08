@@ -53,13 +53,13 @@ int main()
         {
             read_buffer[bytes_read] = '\0';
             strcat(data, read_buffer);
+            printf("Block Data: %s\n", read_buffer);
             if(bytes_read > strlen(read_buffer)) {
                 dataReady = 1;
             }
         }
 
         if(dataReady > 0) {
-            data[strlen(data)] = '\0';
             printf("Received: %s\n", data);
             data[0] = '\0';
             dataReady = -1;
