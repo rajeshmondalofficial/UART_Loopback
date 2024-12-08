@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     char received_data[1024];
     char data[1024];
     while (1) {
-        int bytes_read = read(uart_fd, received_data, sizeof(received_data) - 1);
+        int bytes_read = read(uart_fd, received_data, 1024);
         if (bytes_read < 0) {
             perror("UART read failed");
             break;
