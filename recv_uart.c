@@ -10,10 +10,10 @@
 #define BAUD_RATE B9600
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <data_to_send>\n", argv[0]);
-        return 1;
-    }
+    // if (argc < 2) {
+    //     fprintf(stderr, "Usage: %s <data_to_send>\n", argv[0]);
+    //     return 1;
+    // }
 
     int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY);
     if (uart_fd < 0) {
@@ -30,16 +30,16 @@ int main(int argc, char *argv[]) {
     tcflush(uart_fd, TCIFLUSH);
     tcsetattr(uart_fd, TCSANOW, &options);
 
-    char send_data[256];
-    snprintf(send_data, sizeof(send_data), "%s\r\n", argv[1]);
+    // char send_data[256];
+    // snprintf(send_data, sizeof(send_data), "%s\r\n", argv[1]);
 
-    int bytes_written = write(uart_fd, send_data, strlen(send_data));
-    if (bytes_written < 0) {
-        perror("UART write failed");
-        close(uart_fd);
-        return 1;
-    }
-    printf("Sent: %s\n", send_data);
+    // int bytes_written = write(uart_fd, send_data, strlen(send_data));
+    // if (bytes_written < 0) {
+    //     perror("UART write failed");
+    //     close(uart_fd);
+    //     return 1;
+    // }
+    // printf("Sent: %s\n", send_data);
 
     char received_data[1024];
     char buffer[1024];
