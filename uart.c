@@ -43,7 +43,7 @@ int main()
     printf("Sent: %s\n", write_buffer);
 
     int dataReady = -1;
-    char data[1024];
+    char data[1024] = "";
     while (1)
     {
         // Read data
