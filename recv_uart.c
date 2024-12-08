@@ -52,6 +52,8 @@ int main(int argc, char *argv[]) {
             received_data[bytes_read] = '\0';
             strcat(data, received_data);
             printf("Received Full: %s\n", data);
+            printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
+            printf("String (Last): %c\n", data[strlen(data)-1]);
         }
 
         size_t len = strlen(data);
