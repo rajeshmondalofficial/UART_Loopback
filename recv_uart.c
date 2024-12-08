@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
             perror("UART read failed");
             break;
         } else if (bytes_read > 0) {
-            printf("Received RAW Bytes: %c\n", received_data);
+            printf("Received RAW Bytes: %s\n", received_data);
             received_data[bytes_read] = '\0';
             
             strcat(data, received_data);
