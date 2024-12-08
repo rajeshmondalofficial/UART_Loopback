@@ -49,13 +49,13 @@ int main(int argc, char *argv[]) {
             perror("UART read failed");
             break;
         } else if (bytes_read > 0) {
-            printf("Received RAW Bytes: %s\n", received_data);
+            // printf("Received RAW Bytes: %s\n", received_data);
             received_data[bytes_read] = '\0';
             
             strcat(data, received_data);
-            // printf("Received: %s\n", data);
-            // printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
-            // printf("String (Last): %c\n", data[strlen(data)-1]);
+            printf("Received: %s\n", data);
+            printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
+            printf("String (Last): %c\n", data[strlen(data)-1]);
             if(data[strlen(data) -1] == 0xA) {
                 printf("Received Full: %s\n", data);
                 data[0] = '\0';
