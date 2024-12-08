@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     printf("Sent: %s\n", send_data);
 
     char received_data[1024];
-    char data[1024];
+    char data[];
     while (1) {
         int bytes_read = read(uart_fd, received_data, 1024);
         if (bytes_read < 0) {
@@ -53,13 +53,13 @@ int main(int argc, char *argv[]) {
             received_data[bytes_read + 1] = '\0';
             
             strcat(data, received_data);
-            printf("Received: %s\n", data);
-            printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
-            printf("String (Last): %c\n", data[strlen(data)-1]);
-            // if(data[strlen(data) -1] == 0xA) {
-            //     printf("Received Full: %s\n", data);
-            //     data[0] = '\0';
-            // }
+            // printf("Received: %s\n", data);
+            // printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
+            // printf("String (Last): %c\n", data[strlen(data)-1]);
+            if(data[strlen(data) -1] == 0xA) {
+                printf("Received Full: %s\n", data);
+                data[0] = '\0';
+            }
         }
 
         // size_t len = strlen(data);
