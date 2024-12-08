@@ -51,16 +51,20 @@ int main(int argc, char *argv[]) {
         } else if (bytes_read > 0) {
             received_data[bytes_read] = '\0';
             strcat(data, received_data);
-            printf("Received Full: %s\n", data);
+            printf("Received: %s\n", data);
             printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
             printf("String (Last): %c\n", data[strlen(data)-1]);
+            if(data[strlen(data) -1] == 0xA) {
+                printf("Received Full: %s\n", data);
+                data[0] = '\0';
+            }
         }
 
-        size_t len = strlen(data);
-        if(len > 0 && data[len - 1] == '\n') {
-            printf("Received After Cleanup: %s\n", received_data);
-            data[0] = '\0';
-        }
+        // size_t len = strlen(data);
+        // if(len > 0 && data[len - 1] == '\n') {
+        //     printf("Received After Cleanup: %s\n", received_data);
+        //     data[0] = '\0';
+        // }
     }
 
     close(uart_fd);
