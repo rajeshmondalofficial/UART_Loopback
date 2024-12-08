@@ -54,6 +54,11 @@ int main(int argc, char *argv[]) {
             printf("Received: %s\n", received_data);
             printf("Received Full: %s\n", data);
         }
+
+        size_t len = strlen(data);
+        if(len > 0 && str[len - 1] == '\n') {
+            data[0] = '\0'
+        }
     }
 
     close(uart_fd);
