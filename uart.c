@@ -55,11 +55,11 @@ int main()
             strcat(data, read_buffer);
             if(bytes_read > strlen(read_buffer)) {
                 dataReady = 1;
-                printf("This is the end of read");
             }
         }
 
         if(dataReady > 0) {
+            data[strlen(data)] = '\0';
             printf("Received: %s\n", data);
             data[0] = '\0';
             dataReady = -1;
