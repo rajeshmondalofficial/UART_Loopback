@@ -56,10 +56,10 @@ int main(int argc, char *argv[]) {
             printf("Received: %s\n", data);
             printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
             printf("String (Last): %c\n", data[strlen(data)-1]);
-            if(data[strlen(data) -1] == 0xA) {
-                printf("Received Full: %s\n", data);
-                data[0] = '\0';
-            }
+            // if(data[strlen(data) -1] == 0xA) {
+            //     printf("Received Full: %s\n", data);
+            //     data[0] = '\0';
+            // }
         }
 
         // size_t len = strlen(data);
