@@ -31,9 +31,9 @@ int main()
 
     // Send data
     char write_buffer[] = "AT+SEND=8,6,Hello Wo";
-    // char termination[] = {0x0D, 0x0A};
+    char termination[] = {0x0D, 0x0A};
     int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
-    // int bytes_written1 = write(uart_fd, termination, sizeof(termination));
+    int bytes_written1 = write(uart_fd, termination, sizeof(termination));
     if (bytes_written < 0)
     {
         perror("Failed to write to UART");
@@ -53,7 +53,6 @@ int main()
         {
             read_buffer[bytes_read] = '\0';
             strcat(data, read_buffer);
-            // printf("Block Data: %s\n", read_buffer);
             if(bytes_read > strlen(read_buffer)) {
                 dataReady = 1;
             }

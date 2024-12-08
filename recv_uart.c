@@ -29,7 +29,6 @@ int main()
     tcflush(uart_fd, TCIFLUSH);            // Flush the input buffer
     tcsetattr(uart_fd, TCSANOW, &options); // Apply the configuration
 
-
     printf("Listening on port %d\n", uart_fd);
     int dataReady = -1;
     bool reading = false;
@@ -40,33 +39,31 @@ int main()
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
 
-        // usleep(10000);
-
-        // When bytes read more than 0 make the reading flag true
-        if (bytes_read > 0)
+        int dataReady = -1;
+        char data[1024] = "";
+        while (1)
         {
-            reading = true;
-            read_buffer[bytes_read] = '\0';
-            // strcat(data, read_buffer);
-            printf("Receive: %s\n", read_buffer);
+            // Read data
+            char read_buffer[256];
+            int bytes_read = read(uart_fd, read_buffer, 256);
+            if (bytes_read > 0)
+            {
+                read_buffer[bytes_read] = '\0';
+                strcat(data, read_buffer);
+                // printf("Block Data: %s\n", read_buffer);
+                if (bytes_read > strlen(read_buffer))
+                {
+                    dataReady = 1;
+                }
+            }
+
+            if (dataReady > 0)
+            {
+                printf("Received: %s\n", data);
+                data[0] = '\0';
+                dataReady = -1;
+            }
         }
-        // else
-        // {
-        //     if (reading)
-        //     {
-        //         dataReady = 1;
-        //         reading = false;
-        //     }
-        //     else
-        //     {
-        //         dataReady = -1;
-        //         data[0] = '\0';
-        //     }
-        // }
-        // if (dataReady > 0)
-        // {
-        //     printf("Received: %s\n", data);
-        // }
     }
 
     // Close UART
