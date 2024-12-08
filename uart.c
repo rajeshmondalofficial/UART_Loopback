@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
+#include <errno.h>
 #include <string.h>
 
 #define UART_DEVICE "/dev/ttyAMA0" // For Raspberry Pi's default UART
@@ -51,8 +52,13 @@ int main()
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
         if(bytes_read > 0) {
+            read_buffer[bytes_read] = '\0';
             printf("Index: %d\n", dataReady);
             printf("Received Data: %s\n", read_buffer);
+        } else {
+            if (errno == EIO) {
+                printf("Framing error detected: Possibly stop bit issue.\n");
+            }
         }
         dataReady++;
     }
