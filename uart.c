@@ -30,7 +30,7 @@ int main()
     tcsetattr(uart_fd, TCSANOW, &options); // Apply the configuration
 
     // Send data
-    char write_buffer[] = "AT+SEND=8,6,Hello Wo";
+    char write_buffer[] = "AT+SEND=8,6,Hello";
     char termination[] = {0x0D, 0x0A};
     int bytes_written = write(uart_fd, write_buffer, sizeof(write_buffer));
     int bytes_written1 = write(uart_fd, termination, sizeof(termination));
