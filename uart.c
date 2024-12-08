@@ -53,8 +53,7 @@ int main()
         int bytes_read = read(uart_fd, read_buffer, 256);
         if(bytes_read > 0) {
             read_buffer[bytes_read] = '\0';
-            printf("Index: %d\n", dataReady);
-            printf("Received Data: %s\n", read_buffer);
+            printf("Received Data: %d\n", strlen(read_buffer));
             printf("Received Bytes: %d\n", bytes_read);
         } else {
             if (errno == EIO) {
