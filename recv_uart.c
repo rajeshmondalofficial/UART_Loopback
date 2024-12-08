@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
     printf("Sent: %s\n", send_data);
 
     char received_data[1024];
+    char data[1024] = "";
     while (1) {
         int bytes_read = read(uart_fd, received_data, sizeof(received_data) - 1);
         if (bytes_read < 0) {
@@ -49,7 +50,8 @@ int main(int argc, char *argv[]) {
             break;
         } else if (bytes_read > 0) {
             received_data[bytes_read] = '\0';
-            printf("Received: %s\n", received_data);
+            strcat(data, received_data);
+            printf("Received: %s\n", data);
         }
     }
 
