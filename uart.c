@@ -53,7 +53,7 @@ int main()
         {
             read_buffer[bytes_read] = '\0';
             strcat(data, read_buffer);
-            printf("Block Data: %s\n", read_buffer);
+            // printf("Block Data: %s\n", read_buffer);
             if(bytes_read > strlen(read_buffer)) {
                 dataReady = 1;
             }
