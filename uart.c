@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdbool.h>
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
@@ -44,23 +43,27 @@ int main()
     printf("Sent: %s\n", write_buffer);
 
     int dataReady = -1;
-    bool reading = false;
     char data[1024];
     while (1)
     {
         // Read data
         char read_buffer[256];
         int bytes_read = read(uart_fd, read_buffer, 256);
-        if(bytes_read > 0) {
+        if (bytes_read > 0)
+        {
             read_buffer[bytes_read] = '\0';
-            printf("Received Data: %d\n", strlen(read_buffer));
-            printf("Received Bytes: %d\n", bytes_read);
-        } else {
-            if (errno == EIO) {
-                printf("Framing error detected: Possibly stop bit issue.\n");
+            strcat(data, read_buffer);
+            if(bytes_read > strlen(read_buffer)) {
+                dataReady = 1;
+                printf("This is the end of read");
             }
         }
-        dataReady++;
+
+        if(dataReady > 0) {
+            printf("Received: %s\n", data);
+            data[0] = '\0';
+            dataReady = -1;
+        }
     }
 
     // Close UART
