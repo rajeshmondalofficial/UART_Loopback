@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
         //     printf("Received After Cleanup: %s\n", received_data);
         //     data[0] = '\0';
         // }
-        usleep(10000);
+        // usleep(10000);
     }
 
     close(uart_fd);
