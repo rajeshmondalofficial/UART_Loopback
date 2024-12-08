@@ -1,78 +1,58 @@
 #include <stdio.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <termios.h>
 
-#define UART_DEVICE "/dev/ttyAMA0" // For Raspberry Pi's default UART
+#define UART_DEVICE "/dev/ttyAMA0"
+#define BAUD_RATE B9600
 
-int main()
-{
-    // Open the UART device
-    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY);
-    if (uart_fd == -1)
-    {
-        perror("Failed to open UART");
-        return -1;
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <data_to_send>\n", argv[0]);
+        return 1;
     }
 
-    // Configure UART settings
+    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY);
+    if (uart_fd < 0) {
+        perror("Error opening UART device");
+        return 1;
+    }
+
     struct termios options;
     tcgetattr(uart_fd, &options);
-
-    options.c_cflag = B9600 | CS8 | CLOCAL | CREAD; // Baud rate: 9600, 8 data bits, no parity, 1 stop bit
-    options.c_iflag = IGNPAR;                       // Ignore framing errors
+    options.c_cflag = BAUD_RATE | CS8 | CLOCAL | CREAD;
+    options.c_iflag = IGNPAR;
     options.c_oflag = 0;
-    options.c_lflag = 0; // Non-canonical mode
+    options.c_lflag = 0;
+    tcflush(uart_fd, TCIFLUSH);
+    tcsetattr(uart_fd, TCSANOW, &options);
 
-    tcflush(uart_fd, TCIFLUSH);            // Flush the input buffer
-    tcsetattr(uart_fd, TCSANOW, &options); // Apply the configuration
+    char send_data[256];
+    snprintf(send_data, sizeof(send_data), "%s\r\n", argv[1]);
 
-    printf("Listening on port %d\n", uart_fd);
-    int dataReady = -1;
-    bool reading = false;
-    char data[1024];
-    while (1)
-    {
-        // Read data
-        char read_buffer[256];
-        int bytes_read = read(uart_fd, read_buffer, 256);
+    int bytes_written = write(uart_fd, send_data, strlen(send_data));
+    if (bytes_written < 0) {
+        perror("UART write failed");
+        close(uart_fd);
+        return 1;
+    }
+    printf("Sent: %s\n", send_data);
 
-        int dataReady = -1;
-        char data[1024] = "";
-        while (1)
-        {
-            // Read data
-            char read_buffer[256];
-            int bytes_read = read(uart_fd, read_buffer, 256);
-            if (bytes_read > 0)
-            {
-                read_buffer[bytes_read] = '\0';
-                strcat(data, read_buffer);
-                 printf("Received: %s\n", data);
-                // printf("Block Data: %s\n", read_buffer);
-                // printf("Received Data: %d", bytes_read);
-                // printf("Read Buffer Length: %d\n", strlen(read_buffer));
-
-
-                if (bytes_read > strlen(read_buffer))
-                {
-                    dataReady = 1;
-                }
-            }
-
-            if (dataReady > 0)
-            {
-                // printf("Received: %s\n", data);
-                data[0] = '\0';
-                dataReady = -1;
-            }
+    char received_data[1024];
+    while (1) {
+        int bytes_read = read(uart_fd, received_data, sizeof(received_data) - 1);
+        if (bytes_read < 0) {
+            perror("UART read failed");
+            break;
+        } else if (bytes_read > 0) {
+            received_data[bytes_read] = '\0';
+            printf("Received: %s\n", received_data);
         }
     }
 
-    // Close UART
     close(uart_fd);
-
     return 0;
 }
