@@ -55,6 +55,7 @@ int main()
             read_buffer[bytes_read] = '\0';
             printf("Index: %d\n", dataReady);
             printf("Received Data: %s\n", read_buffer);
+            printf("Received Bytes: %d\n", bytes_read);
         } else {
             if (errno == EIO) {
                 printf("Framing error detected: Possibly stop bit issue.\n");
