@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
             break;
         } else if (bytes_read > 0) {
             // printf("Received RAW Bytes: %s\n", received_data);
-            // received_data[bytes_read] = '\0';
+            received_data[bytes_read + 1] = '\0';
             
             strcat(data, received_data);
             printf("Received: %s\n", data);
