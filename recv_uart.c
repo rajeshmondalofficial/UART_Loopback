@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         }
 
         size_t len = strlen(data);
-        if(len > 0 && str[len - 1] == '\n') {
+        if(len > 0 && data[len - 1] == '\n') {
             data[0] = '\0';
         }
     }
