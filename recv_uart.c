@@ -52,6 +52,7 @@ int main(int argc, char *argv[]) {
             received_data[bytes_read] = '\0';
             strcat(data, received_data);
             printf("Received: %s\n", received_data);
+            printf("Received Full: %s\n", data);
         }
     }
 
