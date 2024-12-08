@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
             break;
         } else if (bytes_read > 0) {
             received_data[bytes_read] = '\0';
+            printf("Received RAW Bytes: %c\n", received_data);
             strcat(data, received_data);
             // printf("Received: %s\n", data);
             // printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
