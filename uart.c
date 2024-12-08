@@ -10,7 +10,7 @@
 int main()
 {
     // Open the UART device
-    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY | O_NDELAY);
+    int uart_fd = open(UART_DEVICE, O_RDWR | O_NOCTTY);
     if (uart_fd == -1)
     {
         perror("Failed to open UART");
@@ -42,28 +42,32 @@ int main()
     }
     printf("Sent: %s\n", write_buffer);
 
-    int dataReady = -1;
-    char data[1024] = "";
-    while (1)
-    {
-        // Read data
-        char read_buffer[256];
-        int bytes_read = read(uart_fd, read_buffer, 256);
-        if (bytes_read > 0)
-        {
-            read_buffer[bytes_read] = '\0';
-            strcat(data, read_buffer);
-            if(bytes_read > strlen(read_buffer)) {
-                dataReady = 1;
-            }
-        }
+    char read_buffer[256];
+    int bytes_read = read(uart_fd, read_buffer, 256);
+    printf("Received: %s\n", read_buffer);
 
-        if(dataReady > 0) {
-            printf("Received: %s\n", data);
-            data[0] = '\0';
-            dataReady = -1;
-        }
-    }
+    // int dataReady = -1;
+    // char data[1024] = "";
+    // while (1)
+    // {
+    //     // Read data
+    //     char read_buffer[256];
+    //     int bytes_read = read(uart_fd, read_buffer, 256);
+    //     if (bytes_read > 0)
+    //     {
+    //         read_buffer[bytes_read] = '\0';
+    //         strcat(data, read_buffer);
+    //         if(bytes_read > strlen(read_buffer)) {
+    //             dataReady = 1;
+    //         }
+    //     }
+
+    //     if(dataReady > 0) {
+    //         printf("Received: %s\n", data);
+    //         data[0] = '\0';
+    //         dataReady = -1;
+    //     }
+    // }
 
     // Close UART
     close(uart_fd);
