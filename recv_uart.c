@@ -42,16 +42,28 @@ int main(int argc, char *argv[]) {
     printf("Sent: %s\n", send_data);
 
     char received_data[1024];
-    char data[1024] = "";
+    char buffer[1024];
+    int buffer_index = 0;
+
     while (1) {
-        int bytes_read = read(uart_fd, received_data, sizeof(received_data) - 1);
+        int bytes_read = read(uart_fd, buffer + buffer_index, sizeof(buffer) - buffer_index - 1);
         if (bytes_read < 0) {
             perror("UART read failed");
             break;
         } else if (bytes_read > 0) {
-            received_data[bytes_read] = '\0';
-            strcat(data, received_data);
-            printf("Received: %s\n", data);
+            buffer_index += bytes_read;
+            buffer[buffer_index] = '\0';
+
+            // Check if we have a complete message
+            char *newline_pos = strchr(buffer, '\n');
+            if (newline_pos != NULL) {
+                *newline_pos = '\0'; // Null-terminate the message
+                printf("Received: %s\n", buffer);
+
+                // Move remaining data to the beginning of the buffer
+                buffer_index = strlen(newline_pos + 1);
+                memmove(buffer, newline_pos + 1, buffer_index);
+            }
         }
     }
 
