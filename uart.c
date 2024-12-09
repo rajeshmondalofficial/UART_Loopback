@@ -42,9 +42,9 @@ int main()
     }
     printf("Sent: %s\n", write_buffer);
 
-    char read_buffer[256];
-    int bytes_read = read(uart_fd, read_buffer, 256);
-    printf("Received: %s\n", read_buffer);
+    // char read_buffer[256];
+    // int bytes_read = read(uart_fd, read_buffer, 256);
+    // printf("Received: %s\n", read_buffer);
 
     // int dataReady = -1;
     // char data[1024] = "";
