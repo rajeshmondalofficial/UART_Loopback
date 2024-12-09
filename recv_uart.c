@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     options.c_iflag = IGNPAR;
     options.c_oflag = 0;
     options.c_lflag = 0;
-    tcflush(uart_fd, TCIFLUSH);
+    tcflush(uart_fd, TCIOFLUSH);
     tcsetattr(uart_fd, TCSANOW, &options);
 
     char send_data[256];
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     printf("Sent: %s\n", send_data);
 
     char received_data[1024];
-    char data[];
+    char data[1024];
     while (1) {
         int bytes_read = read(uart_fd, received_data, 1024);
         if (bytes_read < 0) {
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
             break;
         } else if (bytes_read > 0) {
             // printf("Received RAW Bytes: %s\n", received_data);
-            received_data[bytes_read + 1] = '\0';
+            received_data[bytes_read] = '\0';
             
             strcat(data, received_data);
             // printf("Received: %s\n", data);
