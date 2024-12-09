@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     char received_data[1024];
     char data[1024];
-    time_t last_received = time(NULL)
+    time_t last_received = time(NULL);
 
     while (1) {
         int bytes_read = read(uart_fd, received_data, 1024);
