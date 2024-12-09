@@ -5,9 +5,11 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <termios.h>
+#include <time.h>
 
 #define UART_DEVICE "/dev/ttyAMA0"
 #define BAUD_RATE B9600
+#define TIMEOUT 2 // Timeout in seconds
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -43,24 +45,34 @@ int main(int argc, char *argv[]) {
 
     char received_data[1024];
     char data[1024];
+    time_t last_received = time(NULL)
+
     while (1) {
         int bytes_read = read(uart_fd, received_data, 1024);
         if (bytes_read < 0) {
             perror("UART read failed");
             break;
         } else if (bytes_read > 0) {
-            // printf("Received RAW Bytes: %s\n", received_data);
             received_data[bytes_read] = '\0';
             
             strcat(data, received_data);
             printf("Received: %s\n", data);
             printf("Hexadecimal (Last): %X\n", data[strlen(data)-1]);
             printf("String (Last): %c\n", data[strlen(data)-1]);
+
+
             if(data[strlen(data) -1] == 0xA) {
                 printf("Received Full: %s\n", data);
                 data[0] = '\0';
             }
         }
+
+        // Check for timeout
+        if (difftime(time(NULL), last_received) >= TIMEOUT) {
+            printf("No data received for %d seconds\n", TIMEOUT);
+            last_received = time(NULL); // Reset the timer
+        }
+
 
         // size_t len = strlen(data);
         // if(len > 0 && data[len - 1] == '\n') {
