@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     printf("Sent: %s\n", send_data);
 
     char received_data[1024];
-    char data[];
+    char data[1024];
     while (1) {
         int bytes_read = read(uart_fd, received_data, 1024);
         if (bytes_read < 0) {
