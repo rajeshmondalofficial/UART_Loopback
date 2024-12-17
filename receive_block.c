@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <termios.h>
 #include <string.h>
 #include <sys/select.h>
 
