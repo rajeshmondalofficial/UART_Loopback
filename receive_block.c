@@ -14,6 +14,19 @@ int main() {
         return 1;
     }
 
+    // Configure UART settings
+    struct termios options;
+    tcgetattr(uart_fd, &options);
+
+    options.c_cflag = B9600 | CS8 | CLOCAL | CREAD; // Baud rate: 9600, 8 data bits, no parity, 1 stop bit
+    options.c_iflag = IGNPAR;                       // Ignore framing errors
+    options.c_oflag = 0;
+    options.c_lflag = 0; // Non-canonical mode
+
+    tcflush(uart_fd, TCIFLUSH);            // Flush the input buffer
+    tcsetattr(uart_fd, TCSANOW, &options); // Apply the configuration
+
+
     char buffer[BUFFER_SIZE];
     int index = 0;
 
