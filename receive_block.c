@@ -8,7 +8,7 @@
 #define BUFFER_SIZE 1024
 
 int main() {
-    int uart_fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY | O_NDELAY);
+    int uart_fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);
     if (uart_fd == -1) {
         perror("UART open failed");
         return 1;
@@ -38,7 +38,7 @@ int main() {
         FD_ZERO(&read_fds);
         FD_SET(uart_fd, &read_fds);
 
-        timeout.tv_sec = 2;  // Timeout of 2 seconds
+        timeout.tv_sec = 5;  // Timeout of 2 seconds
         timeout.tv_usec = 0;
 
         if (select(uart_fd + 1, &read_fds, NULL, NULL, &timeout) > 0) {
