@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
-    char receive_message[] = "key=value=another"; // Example string
+char receive_message[] = "key=value=another"; // Example string
     char *saveptr; // Pointer for strtok_r
     char *token;
 
@@ -12,6 +11,3 @@ int main() {
         printf("Token: %s\n", token);
         token = strtok_r(NULL, "=", &saveptr); // Pass NULL to continue tokenizing
     }
-
-    return 0;
-}
